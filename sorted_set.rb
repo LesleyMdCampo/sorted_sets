@@ -1,7 +1,8 @@
-require "pry"
+# require "pry"
 class BasicArraySortedSet
   # Create your internal data structure here. It should be an empty array
   def initialize
+    @array = []
   end
 
   def name
@@ -12,14 +13,22 @@ class BasicArraySortedSet
   # Return false if the element already exists in the array
   # Return original element if the insert succeeds
   def insert(element)
+    if @array.include? element
+      return false
+    else
+    @array << element
+      return element
+    end
   end
 
   # Use the array's native include method
   def include?(element)
+    @array.include? element
   end
 
   # Use the array's native sort method
   def get_sorted_array
+    @array.sort
   end
 end
 
@@ -28,6 +37,7 @@ end
 class HashSortedSet
   # Create your internal data structure here. It should be an empty hash
   def initialize
+    @hash = {}
   end
 
   def name
@@ -38,13 +48,21 @@ class HashSortedSet
   # Return false if the element already exists in the hash
   # Return original element if the insert succeeds
   def insert(element)
+    if @hash.has_key? element 
+      return false
+    else
+      @hash[element]=true
+      return element
+    end
   end
 
   def include?(element)
+    @hash.include? element
   end
 
   # Sort and Return all the keys in the hash
   def get_sorted_array
+    @hash.keys.sort 
   end
 end
 
@@ -53,6 +71,7 @@ end
 # it when asking for sorted array
 class ArraySortedSet
   def initialize
+    @array = []
   end
 
   def name
@@ -63,19 +82,40 @@ class ArraySortedSet
   # Return false if the element already existing in the array
   # Return original element if the insert succeeds
   def insert(element)
+    if @array.include? element
+      return false
+    else
+      # slow method: 
+      # @array << element
+      # @array.sort!
+
+      # find the appropriate index within the array for the new element. 
+      # if new element < the next index, insert element 
+      position = @array.find_index{ |x| x >= element }
+        if position 
+          @array.insert(position, element)
+        else
+          @array << element
+        end
+      return element
+    end 
   end
 
+
   def include?(element)
+    @array.include? element
   end
 
   # You should be able to simply return the original array
   def get_sorted_array
+     @array
   end
 end
 
 
 class BinaryArraySortedSet
   def initialize
+    # @array = []
   end
 
   def name
@@ -86,14 +126,22 @@ class BinaryArraySortedSet
   # Return false if the element already existing in the array
   # Return original element if the insert succeeds
   def insert(element)
+    # if @array.include? element
+    #   return false
+    # else
+    #   @array.index!
+    #   return element
+    # end
   end
 
   # Search for the element using binary search
   def include?(element)
+
   end
 
   # Return the original array (it should be sorted)
   def get_sorted_array
+    @array
   end
 
   # A little helper method to help you implement binary search
