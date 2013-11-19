@@ -64,13 +64,13 @@ class TestSortedSet
         assert a == b, "Inserting #{x} a second time failed: \nGot: #{a}\nExpected: #{b}"
       end
     end
-    
+
     puts "Inserting twice works properly!"
 
     100.times do |x|
       assert test_set.include?(x) == set.include?(x), "Include? for #{x} gives wrong result"
     end
-    
+
     puts "Inclusion works properly!"
 
     test_set = @test_set_type.new
